@@ -1,0 +1,269 @@
+date 30 march
+--------------
+
+SQL workbench install - refer simplilean
+
+========================================================
+https://github.com/malayparikh/SQL_Commands/blob/main/SQL_Commands_file.txt
+========================================================
+
+sudo mysql -u root -p
+create database estore;
+use estore;
+==================
+create table Product (pid int, name varchar (256), brand varchar (256), price int, color varchar (256), ratings float);
+===================
+create table User (uid int, email varchar (256), password varchar (256), name varchar (256), age int);
+====================
+create table Orders (oid int, useremail varchar (256), amount int);
+show tables;
+=====================
+
+show tables;
+====================
+
+  describe User;
+	alter table User add prime int;
+	describe User;
+========================
+
+date 31 march 
+-------------
+
+describe User;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| uid      | int          | YES  |     | NULL    |       |
+| email    | varchar(256) | YES  |     | NULL    |       |
+| password | varchar(256) | YES  |     | NULL    |       |
+| name     | varchar(256) | YES  |     | NULL    |       |
+| age      | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+
+mysql> SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| estore     |
++------------+
+
+====================================================
+mysql> alter table User add prime int;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe User;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| uid      | int          | YES  |     | NULL    |       |
+| email    | varchar(256) | YES  |     | NULL    |       |
+| password | varchar(256) | YES  |     | NULL    |       |
+| name     | varchar(256) | YES  |     | NULL    |       |
+| age      | int          | YES  |     | NULL    |       |
+| prime    | int          | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+==========To drop any column=========================================
+mysql> alter table User drop column prime;
+
+===============================================
+
+insert into User (uid, email, password, name, age, prime) values (1, 'breignould0@last.fm', 'wL5*Tzo>', 'Blancha', '20', 1);
+insert into User (uid, email, password, name, age, prime) values (2, 'ebeamand1@rakuten.co.jp', 'xG2|4_SFw!T@pBX{', 'Edmund', '30', 0);
+insert into User (uid, email, password, name, age, prime) values (3, 'usclater2@hubpages.com', 'mJ8/S3''A"jq,', 'Urbano', '35', 1);
+insert into User (uid, email, password, name, age, prime) values (4, 'tluffman3@wix.com', 'zU9}}Ys5''%BjYPh', 'Tersina', '40', 0);
+insert into User (uid, email, password, name, age, prime) values (5, 'tbauldry4@photobucket.com', 'gS4.(Gt5)', 'Tiphanie', '50', 1);
+
+========================================================
+
+********************************************************
+https://github.com/malayparikh/SQL_Commands/blob/main/SQL_Queries.txt
+********************************************************
+
+filter serach and sort
+-----------------------
+
+-- Create table for employees
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    department_id INT
+);
+
+-- Create table for departments
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+-- Insert data into employees table
+INSERT INTO employees (emp_id, emp_name, department_id) VALUES
+(1, 'John Doe', 1),
+(2, 'Jane Smith', 2),
+(3, 'Alice Johnson', 1),
+(4, 'Bob Williams', 3);
+
+-- Insert data into departments table
+INSERT INTO departments (dept_id, dept_name) VALUES
+(1, 'HR'),
+(2, 'Marketing'),
+(3, 'Finance');
+===============================================================
+
+-- Example: Retrieve employees from the HR department
+SELECT emp_id, emp_name
+FROM employees
+WHERE department_id = 1;
+
+-- Example: Count the number of employees in each department
+SELECT department_id, COUNT(emp_id) AS num_employees
+FROM employees
+GROUP BY department_id;
+
+-- Example: List employees sorted by their names
+SELECT emp_id, emp_name
+FROM employees
+ORDER BY emp_name;
+
+-- Example: Find employees whose names start with 'J'
+SELECT emp_id, emp_name
+FROM employees
+WHERE emp_name LIKE 'J%';
+
+-- Example: Retrieve the first 5 employees
+SELECT emp_id, emp_name
+FROM employees
+LIMIT 5;
+
+========================================================
+
+-- Create table for employees
+CREATE TABLE employees (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(100),
+    department_id INT
+);
+
+-- Create table for departments
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+-- Insert data into employees table
+INSERT INTO employees (emp_id, emp_name, department_id) VALUES
+(1, 'John Doe', 1),
+(2, 'Jane Smith', 2),
+(3, 'Alice Johnson', 1),
+(4, 'Bob Williams', 3);
+
+-- Insert data into departments table
+INSERT INTO departments (dept_id, dept_name) VALUES
+(1, 'HR'),
+(2, 'Marketing'),
+(3, 'Finance');
+===============================================================
+
+-- Example: Retrieve employees from the HR department
+SELECT emp_id, emp_name
+FROM employees
+WHERE department_id = 1;
+
+-- Example: Count the number of employees in each department
+SELECT department_id, COUNT(emp_id) AS num_employees
+FROM employees
+GROUP BY department_id;
+
+-- Example: List employees sorted by their names
+SELECT emp_id, emp_name
+FROM employees
+ORDER BY emp_name;
+
+-- Example: Find employees whose names start with 'J'
+SELECT emp_id, emp_name
+FROM employees
+WHERE emp_name LIKE 'J%';
+
+-- Example: Retrieve the first 5 employees
+SELECT emp_id, emp_name
+FROM employees
+LIMIT 5;
+=====================================
+
+SELECT * FROM cmpdb.employees;
+
+use cmpdb;
+SELECT *
+FROM employees e
+INNER JOIN department d
+ON e.department_id = d.dept_id;
+
+SELECT * FROM employees
+LEFT JOIN department
+ON employees.department_id=department.dept_id;
+
+
+SELECT * FROM employees
+RIGHT JOIN department
+ON employees.department_id=department.dept_id;
+
+SELECT * FROM employees
+FULL JOIN department
+ON employees.department_id=department.dept_id;
+
+SELECT employees.emp_id, employees.emp_name, department.dept_name
+FROM employees
+CROSS JOIN department;
+
+======================================
+
+create table projects(
+project_id int primary key,
+project_name VARCHAR(100)
+);
+
+CREATE TABLE employee_projects(
+
+emp_id INT,
+project_id INT,
+primary key(emp_id, project_id),
+foreign key (emp_id) references employees(emp_id),
+foreign key (project_id) references projects(project_id)
+);
+
+INSERT INTO projects (project_id, project_name) VALUES
+(101, 'Project A'),
+(102, 'Project B'),
+(103, 'Project C');
+
+INSERT INTO employee_projects (emp_id, project_id) VALUES
+(1, 101),
+(2, 101),
+(3, 102),
+(4, 103);
+
+==================
+
+SELECT e.emp_name, d.dept_name, p.project_name
+FROM employees e
+INNER JOIN department d ON e.department_id=d.dept_id
+INNER JOIN employee_projects ep ON e.emp_id = ep.emp_id
+INNER JOIN projects p ON ep.project_id =p.project_id;
+
+
+
+526407
+
+
+
+
+
+
+
+
+
+
+
+

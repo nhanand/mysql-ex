@@ -1,0 +1,500 @@
+SQL
+---
+
+mongoDB - to store large data
+no-relational - no format
+sql - relational, programming language used to interact with DB.
+
+
+-sudo mysql -u root -p
+for lab password should be blank
+
+-show databases;
+-create database mydb;
+-use mydb;
+-drop database mydb;
+-create database estore;
+show databases;
+use estore;
+create table Product(pid int, name varchar(256), brand varchar(256), 
+price int, color varchar(256), ratings float);
+
+show tables;
+=======================================
+
+  describe User;   // to see the attr in user tables
+	alter table User add prime int;
+	describe User;
+========================================
+
+class 31 march
+---------------
+
+=======================================================
+sudo mysql -u root -p
+
+show databases;
+
+use estore;
+ 
+create table Orders (oid int, usermail varchar (256), amount int);
+create table User (uid int, email varchar(256), password varchar(256), name varchar(256), age int);
+create table Product (pid int, name varchar(256), brand varchar(256), 
+price int, color varchar(256), ratings float);
+
+-------------------------------------------------------------------------------------
+primary key auto increament syntax
+
+create table User(
+uid int primary key auto_increment,
+name varchar(256),
+phone varchar(256),
+email varchar(256),
+);
+
+insert into User values(null, ’John Watson’, ‘+91 99999 11111’, ‘john@example.com’);
+-------------------------------------------------------------------------------------
+
+show tables;  // User, Product, Orders
+describe User;
+select database(); // in which database currently
+drop Product;  // to delete the table
+
+alter table User add prime int; // adding attributes in the existing table
+------ note : using alter we can add or delete from table;
+
+Alter Table Product drop prime;// droping attributes
+
+note:- Truncate is used to completely delete data from the table, it cannot be rollback
+========================================================
+
+-------------------------------------------------------------------------------------------------------------------------------
+insert into User values(1, 'john@gmail.com', '1234567', 'john', '20', '1');
+
+insert into User (uid, email, password, name, age, prime) values (1, 'abc@gmail.com', '1222333', 'abc', '24', 1 );  //better way
+---------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------
+test data generator // to create some dummy values
+mockaroo.com // for creating dummy data - not in sql command
+-----------------------------------------------------
+
+
+--------------------------------------------------------------
+- select * from User; // get data
+- select * from User where name="anand"; // for single record
+---------------------------------------------------------------
+
+-------------------------------------------------------
+update User set name='zxcvbn', age= 43 where uid ==1;
+-------------------------------------------------------
+
+----------------------------------------------------------
+- delete from User; // delete all data 
+- delete from User where uid = 1; // for specific User
+----------------------------------------------------------
+
+=======================some examples of inbuilt functions========================
+------------------------------------------------------------------------------------------
+create tables 
+
+mysql> CREATE TABLE employees(emp_id int primary key,
+    -> emp_name Varchar(100),
+    -> department_id int)
+    -> ;
++--------+-----------+---------------+
+| emp_id | emp_name  | department_id |
++--------+-----------+---------------+
+|      1 | avi       |             1 |
+|      2 | mohan     |             2 |
+|      3 | anu       |             3 |
+|      4 | arundhati |            31 |
+|      5 | avinash   |             2 |
++--------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+
+mysql> create table department(dept_id int primary key, dept_name varchar(100));
+
+mysql> select * from department;
++---------+------------+
+| dept_id | dept_name  |
++---------+------------+
+|       1 | marketing  |
+|       2 | HR         |
+|       3 | operations |
++---------+------------+
+3 rows in set (0.00 sec)
+
+
+then add data and perform below operations
+------------------------------------------------------------------------------------------
+
+select * from employees where department_id=1; // filter
+select emp_id ,emp_name from employees where department_id =2;
+
+select department_id, count(emp_id) from employees group by  deparment_id; // count no of employees in each department
+
+*******************************************************	
+mysql> select department_id, count(emp_id) from employees group by department_id;
++---------------+---------------+
+| department_id | count(emp_id) |
++---------------+---------------+
+|             1 |             1 |
+|             2 |             2 |
+|             3 |             1 |
+|            31 |             1 |
++---------------+---------------+
+
+mysql>  select department_id, count(emp_id) as no_of_employees from employees group by department_id;
++---------------+-----------------+
+| department_id | no_of_employees |
++---------------+-----------------+
+|             1 |               1 |
+|             2 |               2 |
+|             3 |               1 |
+|            31 |               1 |
++---------------+-----------------+
+4 rows in set (0.00 sec)
+********************************************************
+
+
+select * from employees order by emp_name asc; // sorting
+
++--------+-----------+---------------+
+| emp_id | emp_name  | department_id |
++--------+-----------+---------------+
+|      3 | anu       |             3 |
+|      4 | arundhati |            31 |
+|      1 | avi       |             1 |
+|      5 | avinash   |             2 |
+|      2 | mohan     |             2 |
++--------+-----------+----------------
+
+
+=====================================================
+Like operator
+-------------
+
+- wild card characters
+- searching for specific word
+
+query employee whose name starts with J
+
+mysql> select * from employees where emp_name like "a%";
++--------+-----------+---------------+
+| emp_id | emp_name  | department_id |
++--------+-----------+---------------+
+|      1 | avi       |             1 |
+|      3 | anu       |             3 |
+|      4 | arundhati |            31 |
+|      5 | avinash   |             2 |
++--------+-----------+---------------+
+
+end with h
+-----------
+mysql> select * from employees where emp_name like "%h";
++--------+----------+---------------+
+| emp_id | emp_name | department_id |
++--------+----------+---------------+
+|      5 | avinash  |             2 |
++--------+----------+---------------+
+1 row in set (0.00 sec)
+
+
+in between         '%n%'
+
+mysql> select * from employees where emp_name like "%h";
++--------+----------+---------------+
+| emp_id | emp_name | department_id |
++--------+----------+---------------+
+|      5 | avinash  |             2 |
++--------+----------+---------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees where emp_name like "%hat%";
++--------+-----------+---------------+
+| emp_id | emp_name  | department_id |
++--------+-----------+---------------+
+|      4 | arundhati |            31 |
++--------+-----------+---------------+
+1 row in set (0.00 sec)
+
+
+======================================================
+
+more than 1 employee
+--------------------
+
+- having clause
+- need to recheck
+
+select dep_id, count(emp_id) as number_of_employees from employees group by dep_id having count (emp_id) > 1;
+========================================================
+
+distinct
+--------
+
+- uniq data. duplicate will not be shown
+
+mysql> select distinct dept_name from department;
++------------+
+| dept_name  |
++------------+
+| marketing  |
+| HR         |
+| operations |
++------------+
+3 rows in set (0.00 sec)
+
+========================================================
+
+upper case
+----------
+
+select emp_id, upper(emp_name) from employees;
+               lower
+
+mysql> select emp_id, upper(emp_name) from employees;
++--------+-----------------+
+| emp_id | upper(emp_name) |
++--------+-----------------+
+|      1 | AVI             |
+|      2 | MOHAN           |
+|      3 | ANU             |
+|      4 | ARUNDHATI       |
+|      5 | AVINASH         |
++--------+-----------------+
+5 rows in set (0.00 sec)
+
+
+========================examples end=============================
+
+JOINS
+-----
+
+**we use join to know how we can combine the table.
+
+we have
+emp table   emp_id emp_name dep_id
+dep table   dep_id dep_name
+
+want 
+
+emp_name
+emp_id
+dep_name
+
+it is not possible to get the department name despite of  having the department id. 
+so to get department name we perform join.
+
+**vimp -> we perform joins for this 
+
+------------------------------------------
+inner join or left join as QA is most imp
+------------------------------------------
+
+-- it returns rows in both the table.
+
+mysql> select * from department;
++---------+------------+
+| dept_id | dept_name  |
++---------+------------+
+|       1 | marketing  |
+|       2 | HR         |
+|       3 | operations |
++---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employees;
++--------+-----------+---------------+
+| emp_id | emp_name  | department_id |
++--------+-----------+---------------+
+|      1 | avi       |             1 |
+|      2 | mohan     |             2 |
+|      3 | anu       |             3 |
+|      4 | arundhati |            31 |
+|      5 | avinash   |             2 |
++--------+-----------+---------------+
+5 rows in set (0.00 sec)
+
+
+query for this 
+---------------
+=====================================================
+for all
+--------
+
+SELECT *
+FROM employees
+INNER JOIN department
+ON employees.department_id = department.dept_id; // on is used for column name
+
+note:- ON is used for on which coloum we have to perform join
+
++--------+----------+---------------+---------+------------+
+| emp_id | emp_name | department_id | dept_id | dept_name  |
++--------+----------+---------------+---------+------------+
+|      1 | avi      |             1 |       1 | marketing  |
+|      2 | mohan    |             2 |       2 | HR         |
+|      3 | anu      |             3 |       3 | operations |
+|      5 | avinash  |             2 |       2 | HR         |
++--------+----------+---------------+---------+------------+
+
+--------------------------------------------------------------------------
+
+for specific 
+------------
+mysql> select emp_id, emp_name, dept_name from employees 
+INNER JOIN department 
+ON employees.department_id = department.dept_id;
++--------+----------+------------+
+| emp_id | emp_name | dept_name  |
++--------+----------+------------+
+|      1 | avi      | marketing  |
+|      2 | mohan    | HR         |
+|      3 | anu      | operations |
+|      5 | avinash  | HR         |
++--------+----------+------------+
+4 rows in set (0.00 sec)
+===============================================================================
+
+another way of writing this
+
+SELECT *
+FROM employees e                                      
+INNER JOIN department d
+ON e.department_id = d.dept_id;                 // e and d are usesd as alias
+*******************************************************
+
+----------
+left_join
+----------
+
+-all rows with left table and match rows with right table
+- if right table blank then null values
+
+
+SELECT *
+FROM employees
+LEFT JOIN department
+ON employees.department_id = department.dept_id; 
+
++--------+-----------+---------------+---------+------------+
+| emp_id | emp_name  | department_id | dept_id | dept_name  |
++--------+-----------+---------------+---------+------------+
+|      1 | avi       |             1 |       1 | marketing  |
+|      2 | mohan     |             2 |       2 | HR         |
+|      3 | anu       |             3 |       3 | operations |
+|      4 | arundhati |            31 |    NULL | NULL       |
+|      5 | avinash   |             2 |       2 | HR         |
++--------+-----------+---------------+---------+------------+
+5 rows in set (0.00 sec)
+
+
+********************************************************
+
+--------------
+right join
+------------
+
+- all rows from right table and matched from left table will come.
+
+SELECT *
+FROM employees
+RIGHT JOIN department
+ON employees.department_id = department.dept_id; 
+
++--------+----------+---------------+---------+------------+
+| emp_id | emp_name | department_id | dept_id | dept_name  |
++--------+----------+---------------+---------+------------+
+|      1 | avi      |             1 |       1 | marketing  |
+|      5 | avinash  |             2 |       2 | HR         |
+|      2 | mohan    |             2 |       2 | HR         |
+|      3 | anu      |             3 |       3 | operations |
++--------+----------+---------------+---------+------------+
+4 rows in set (0.00 sec)
+
+
+note - rev of left join
+********************************************************
+=====================================================================================================
+full join
+-----------
+
+SELECT * FROM employees e FULL JOIN department d ON e.department_id = d.dept_id; 
+
+-------------
+cross join
+------------
+
+SELECT employees.emp_id, employees.emp_name, department.dept_name
+FROM employees
+CROSS JOIN department
+ON employees.department_id = department.dept_id; 
+
+note: instead of full join we can use cross join and it will give P an C of all records in table
+and it is not advisable
+======================================================================================================
+
+multiple joins
+--------------
+
+create table projects(
+project_id int primary key,
+project_name VARCHAR(100)
+);
+
+CREATE TABLE employee_projects(
+
+emp_id INT,
+project_id INT,
+primary key(emp_id, project_id),
+foreign key (emp_id) references employees(emp_id),
+foreign key (project_id) references projects(project_id)
+);
+
+INSERT INTO projects (project_id, project_name) VALUES
+(101, 'Project A'),
+(102, 'Project B'),
+(103, 'Project C');
+
+INSERT INTO employee_projects (emp_id, project_id) VALUES
+(1, 101),
+(2, 101),
+(3, 102),
+(4, 103);
+
+queries for it
+----------------
+
+SELECT e.emp_name, d.dept_name, p.project_name
+FROM employees e
+INNER JOIN department d ON e.department_id=d.dept_id
+INNER JOIN employee_projects ep ON e.emp_id = ep.emp_id
+INNER JOIN projects p ON ep.project_id =p.project_id;
+
+=================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
