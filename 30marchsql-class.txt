@@ -13,9 +13,8 @@ for lab password should be blank
 -create database mydb;
 -use mydb;
 -drop database mydb;
--create database estore;
-show databases;
-use estore;
+=======================================================================
+
 create table Product(pid int, name varchar(256), brand varchar(256), 
 price int, color varchar(256), ratings float);
 
@@ -25,24 +24,30 @@ show tables;
   describe User;   // to see the attr in user tables
 	alter table User add prime int;
 	describe User;
-========================================
+===========================================================================
 
 class 31 march
 ---------------
 
 =======================================================
-sudo mysql -u root -p
+sudo mysql -u root -p     //linux command
 
 show databases;
 
 use estore;
  
+===================================================================================================
 create table Orders (oid int, usermail varchar (256), amount int);
 create table User (uid int, email varchar(256), password varchar(256), name varchar(256), age int);
 create table Product (pid int, name varchar(256), brand varchar(256), 
 price int, color varchar(256), ratings float);
 
--------------------------------------------------------------------------------------
+
+insert into User values(1, 'john@gmail.com', '1234567', 'john', '20', '1');
+
+insert into User (uid, email, password, name, age, prime) values (1, 'abc@gmail.com', '1222333', 'abc', '24', 1 );  //better way
+
+-----------------------------------------------------------------------------------------------------------------------------------
 primary key auto increament syntax
 
 create table User(
@@ -53,12 +58,14 @@ email varchar(256),
 );
 
 insert into User values(null, ’John Watson’, ‘+91 99999 11111’, ‘john@example.com’);
--------------------------------------------------------------------------------------
+=====================================================================================================
 
 show tables;  // User, Product, Orders
 describe User;
 select database(); // in which database currently
 drop Product;  // to delete the table
+
+========================================================================================
 
 alter table User add prime int; // adding attributes in the existing table
 ------ note : using alter we can add or delete from table;
@@ -66,13 +73,7 @@ alter table User add prime int; // adding attributes in the existing table
 Alter Table Product drop prime;// droping attributes
 
 note:- Truncate is used to completely delete data from the table, it cannot be rollback
-========================================================
-
--------------------------------------------------------------------------------------------------------------------------------
-insert into User values(1, 'john@gmail.com', '1234567', 'john', '20', '1');
-
-insert into User (uid, email, password, name, age, prime) values (1, 'abc@gmail.com', '1222333', 'abc', '24', 1 );  //better way
----------------------------------------------------------------------------------------------------------------------------------
+==========================================================================================
 
 ----------------------------------------------------
 test data generator // to create some dummy values

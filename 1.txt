@@ -1,0 +1,50 @@
+show databases;
+create database vbnm;
+drop database vbnm;
+use sldb;
+show tables;
+
+=====================================================================================
+
+create table orders (oid int, useremail varchar(256), amount int);
+drop table orders;
+
+describe product;
+
+insert into user value(1, 'mohan@gmail.com', '1234567', 'mohan', 23);
+
+select * from user;
+
+drop table orders;
+
+alter table User add prime int;
+
+describe User;
+
+select * from User;
+
+alter table User drop prime;
+
+select * from User;
+
+=======================================================================================
+
+update user set name="abhishek" where uid ="2";
+update User set name= ‘Dave’ where uid = 3;
+
+=======================================================================================
+
+select * from User;
+
+delete from User where uid = 2;
+
+=======================================================================================
+
+
+
+
+
+
+
+
+
