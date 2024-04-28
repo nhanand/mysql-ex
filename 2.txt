@@ -1,0 +1,112 @@
+-------------------------some inbuilt function examples---------------------------------
+
+                            filter serach and sort
+                            -----------------------
+
+ show databases;
+ use sldb;
+ CREATE TABLE employees(emp_id int primary key, emp_name Varchar(100),dept_id int);
+ 
+ create table department(dept_id int primary key, dept_name varchar(400));
+ 
+ show tables;
+ 
+ insert into employees (emp_id, emp_name, dept_id) values (1, "avi", 1);
+ insert into employees (emp_id, emp_name, dept_id) values (2, "neha", 2);
+ insert into employees (emp_id, emp_name, dept_id) values (3, "puneet", 3);
+ insert into employees (emp_id, emp_name, dept_id) values (4, "ram", 4);
+ insert into employees (emp_id, emp_name, dept_id) values (5, "soham", 1);
+ 
+ insert into department (dept_id, dept_name) values (1, "HR");
+ insert into department (dept_id, dept_name) values (2, "MARKETING");
+ insert into department (dept_id, dept_name) values (3, "OPERATION");
+ insert into department (dept_id, dept_name) values (4, "FINANCE");
+ 
+ select * from employees;
+ select * from department;
+
+ =====================================================================================================
+ 
+ // queries
+ ------------------
+
+ select * from employees where emp_name = "avi";
+ 
+ -- Example: Retrieve employees from the HR department
+ select * from employees where dept_id = 1;
+ ------------------------------------------------------
+
+ -- Example: Retrieve the first 5 employees
+SELECT emp_id, emp_nameFROM employeesLIMIT 5;
+--------------------------------------------------------
+
+ select emp_name, emp_id from employees where dept_id =1;
+ ---------------------------------------------------------------
+
+ -- Example: List employees sorted by their names
+SELECT emp_id, emp_name FROM employees ORDER BY emp_name;
+------------------------------------------------------------------------
+
+ -- Example: Count the number of employees in each department
+
+ select dept_id, count(emp_id) from employees group by  dept_id;
+ ------------------------------------------------------------------
+
+                            -- alias 
+ select dept_id, count(emp_id) as no_of_employees from employees group by  dept_id;
+----------------------------------------------------------------------------------------
+
+                            -- sorting
+ select * from employees order by emp_name asc;
+ select * from employees order by emp_name desc;
+ -----------------------------------------------------------------------------
+
+                              -- Like operator
+                            
+- wild card characters
+- searching for specific word
+
+-- query employee whose name starts with m
+
+select * from employees where emp_name like "a%";
+
+-- query employee whose name end with m
+select * from employees where emp_name like "%m";
+
+-- in between         '%r%'
+
+select * from employees where emp_name like "%e%";
+
+------------------------------------------------------------------------------------
+
+-more than one employee
+
+
+
+select dept_id, count(emp_id) as number_of_employees from employees group by dept_id having count(emp_id) > 1;
+
+---------------------------------------------------------------------------------------------------------------
+
+distinct
+--------
+
+- uniq data. duplicate will not be shown
+
+select distinct dept_name from department;
+
+----------------------------------------------------------------------------------------------------
+
+upper case & LOwer case
+------------------------
+
+select emp_id, upper(emp_name) from employees;
+select emp_id, lower(emp_name) from employees;
+
+---------------------------------------------------------------------------------------------------
+
+
+
+          
+ 
+ 
+ 

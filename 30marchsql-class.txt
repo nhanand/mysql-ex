@@ -1,6 +1,8 @@
 SQL
 ---
 
+plz refer 1, 2 and 3.txt
+
 mongoDB - to store large data
 no-relational - no format
 sql - relational, programming language used to interact with DB.
@@ -228,9 +230,8 @@ more than 1 employee
 --------------------
 
 - having clause
-- need to recheck
 
-select dep_id, count(emp_id) as number_of_employees from employees group by dep_id having count (emp_id) > 1;
+select department_id, count(emp_id) as number_of_employees from employees group by department_id having count(emp_id) > 1;
 ========================================================
 
 distinct

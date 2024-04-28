@@ -192,6 +192,8 @@ FROM employees
 LIMIT 5;
 =====================================
 
+                joins
+
 SELECT * FROM cmpdb.employees;
 
 use cmpdb;
