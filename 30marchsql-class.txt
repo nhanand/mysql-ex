@@ -6,7 +6,7 @@ no-relational - no format
 sql - relational, programming language used to interact with DB.
 
 
--sudo mysql -u root -p
+-sudo mysql -u root -p                                 // linux 
 for lab password should be blank
 
 -show databases;
