@@ -1,0 +1,158 @@
+                         JOINS
+
+
+**we use join to know how we can combine the table.
+
+we have
+emp table   emp_id emp_name dep_id
+dep table   dep_id dep_name
+
+want 
+
+emp_name
+emp_id
+dep_name
+
+it is not possible to get the department name despite of  having the department id. 
+so to get department name we perform join.
+
+**vimp -> we perform joins for this 
+
+======================================================================================
+
+CREATE TABLE employees(emp_id int primary key, emp_name Varchar(100),dept_id int);
+
+ insert into employees (emp_id, emp_name, dept_id) values (1, "avi", 1);
+ insert into employees (emp_id, emp_name, dept_id) values (2, "neha", 2);
+ insert into employees (emp_id, emp_name, dept_id) values (3, "puneet", 3);
+ insert into employees (emp_id, emp_name, dept_id) values (4, "ram", 4);
+ insert into employees (emp_id, emp_name, dept_id) values (5, "soham", 1);
+
+ ------------------------------------------------------------------------------------
+ 
+create table department(dept_id int primary key, dept_name varchar(400));
+
+ insert into department (dept_id, dept_name) values (1, "HR");
+ insert into department (dept_id, dept_name) values (2, "MARKETING");
+ insert into department (dept_id, dept_name) values (3, "OPERATION");
+ insert into department (dept_id, dept_name) values (4, "FINANCE");
+
+
+
+=============================================================================
+
+inner join
+-----------
+
+- it returns rows in both the table.
+
+SELECT *
+FROM employees e
+INNER JOIN department d
+ON e.dept_id = d.dept_id;
+
+for specific 
+
+select emp_id, upper(emp_name), dept_name from employees e inner join department d on e.dept_id = d.dept_id;
+
+note:- ON is used for on which coloum we have to perform join.
+==============================================================================
+left join
+----------
+
+-all rows with left table and match rows with right table
+- if right table blank then null values
+
+SELECT * FROM employees
+LEFT JOIN department
+ON employees.dept_id=department.dept_id;
+
+===============================================================================
+right join
+-----------
+- all rows from right table and matched from left table will come.
+-rev of left join.
+
+SELECT * FROM employees
+RIGHT JOIN department
+ON employees.dept_id=department.dept_id;
+
+================================================================================
+FULL join
+----------
+
+SELECT * FROM employees
+FULL JOIN department
+ON employees.dept_id=department.dept_id;
+
+
+cross join 
+----------
+
+imp - no ON clause
+
+SELECT employees.emp_id, employees.emp_name, department.dept_name
+FROM employees
+CROSS JOIN department;        
+
+
+note: instead of full join we can use cross join and it will give P an C of all records in table
+and it is not advisable
+================================================================================
+
+CREATE TABLE employees(emp_id int primary key, emp_name Varchar(100),dept_id int);
+
+ insert into employees (emp_id, emp_name, dept_id) values (1, "avi", 1);
+ insert into employees (emp_id, emp_name, dept_id) values (2, "neha", 2);
+ insert into employees (emp_id, emp_name, dept_id) values (3, "puneet", 3);
+ insert into employees (emp_id, emp_name, dept_id) values (4, "ram", 4);
+ insert into employees (emp_id, emp_name, dept_id) values (5, "soham", 1);
+
+ ------------------------------------------------------------------------------------
+ 
+create table department(dept_id int primary key, dept_name varchar(400));
+
+ insert into department (dept_id, dept_name) values (1, "HR");
+ insert into department (dept_id, dept_name) values (2, "MARKETING");
+ insert into department (dept_id, dept_name) values (3, "OPERATION");
+ insert into department (dept_id, dept_name) values (4, "FINANCE");
+
+-----------------------------------------------------------------------------------
+create table projects(
+project_id int primary key,
+project_name VARCHAR(100)
+);
+
+INSERT INTO projects (project_id, project_name) VALUES
+(101, 'Project A'),
+(102, 'Project B'),
+(103, 'Project C');
+
+----------------------------------------------------------------------------
+
+*imp
+
+CREATE TABLE employee_projects(
+emp_id INT,
+project_id INT,
+primary key(emp_id, project_id),
+foreign key (emp_id) references employees(emp_id),
+foreign key (project_id) references projects(project_id)
+);
+
+INSERT INTO employee_projects (emp_id, project_id) VALUES
+(1, 101),
+(2, 101),
+(3, 102),
+(4, 103);
+
+------------------------------------------------------------------------------
+
+
+SELECT e.emp_name, d.dept_name, p.project_name
+FROM employees e
+INNER JOIN department d ON e.dept_id=d.dept_id
+INNER JOIN employee_projects ep ON e.emp_id = ep.emp_id
+INNER JOIN projects p ON ep.project_id =p.project_id;
+
+====================================================================================

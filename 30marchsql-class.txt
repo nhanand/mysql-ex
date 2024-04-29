@@ -1,7 +1,11 @@
 SQL
 ---
 
-plz refer 1, 2 and 3.txt
+-------------------------------------
+**refer 1 , 2, 3joins.txt seperated--
+-------------------------------------
+
+
 
 mongoDB - to store large data
 no-relational - no format
@@ -432,8 +436,7 @@ cross join
 
 SELECT employees.emp_id, employees.emp_name, department.dept_name
 FROM employees
-CROSS JOIN department
-ON employees.department_id = department.dept_id; 
+CROSS JOIN department; 
 
 note: instead of full join we can use cross join and it will give P an C of all records in table
 and it is not advisable
@@ -475,7 +478,6 @@ FROM employees e
 INNER JOIN department d ON e.department_id=d.dept_id
 INNER JOIN employee_projects ep ON e.emp_id = ep.emp_id
 INNER JOIN projects p ON ep.project_id =p.project_id;
-
 =================================================================================================
 
 
