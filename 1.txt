@@ -1,3 +1,5 @@
+====================
+
 show databases;
 create database vbnm;
 drop database vbnm;
