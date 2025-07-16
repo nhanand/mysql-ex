@@ -1,5 +1,4 @@
-
-================testing master ====================================
+================testing merge====================================
 
 show databases;
 create database vbnm;
@@ -7,7 +6,7 @@ drop database vbnm;
 use sldb;
 show tables;
 
-=====================================================================================
+=================merge suuceeded==============================================
 
 create table orders (oid int, useremail varchar(256), amount int);
 drop table orders;
